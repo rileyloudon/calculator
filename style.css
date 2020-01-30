@@ -1,29 +1,23 @@
-* {
-  padding: 0;
-  margin: 0;
-}
-
 #calculator {
   margin: auto;
   margin-top: 5vh;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  width: 90vw;
-  height: 90vh;
+  width: 80vw;
+  height: 85vh;
   border: 3px solid black;
   overflow: hidden;
 }
 
 .display {
+  padding: 10px;
   display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
   border-bottom: 3px solid black;
   grid-area: 1 / 1 / 2 / 5;
   font-size: 7vh;
-  text-align: right;
-  padding: 10px;
-  align-items: center;
-  flex-direction: row-reverse;
 }
 
 .number,
@@ -37,12 +31,11 @@
 .equals {
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-size: 6vh;
   border: 3px solid black;
   width: 100%;
   height: 100%;
-  text-align: center;
-  font-size: 6vh;
-  align-items: center;
 }
 
 .percent,
