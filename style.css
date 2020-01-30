@@ -18,7 +18,7 @@
 .number,
 .ac,
 .swap,
-.factorial,
+.percent,
 .divide,
 .multiply,
 .subtract,
@@ -42,7 +42,7 @@
   grid-area: 2 / 2 / 3 / 3;
 }
 
-.modulo {
+.percent {
   grid-area: 2 / 3 / 3 / 4;
 }
 
