@@ -38,6 +38,15 @@ const divide = number => {
   display /= number;
 };
 
+const percent = () => {
+  if (display === 0) {
+    return (display = 0);
+  } else {
+    display /= 100;
+    return display;
+  }
+};
+
 // add.addEventListener('click', () => {
 // });
 
