@@ -5,19 +5,43 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(6, 1fr);
   width: 80vw;
-  height: 85vh;
-  border: 3px solid black;
+  height: 80vh;
+  border: 1px solid black;
+  border-radius: 10px;
   overflow: hidden;
 }
 
 .display {
+  color: white;
+  background-color: #303133;
   padding: 10px;
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
-  border-bottom: 3px solid black;
-  grid-area: 1 / 1 / 2 / 5;
   font-size: 7vh;
+  letter-spacing: 2px;
+  border-bottom: 1px solid black;
+  grid-area: 1 / 1 / 2 / 5;
+}
+
+.divide,
+.multiply,
+.subtract,
+.add,
+.equals {
+  color: #fef0df;
+  background-color: #ff950c;
+}
+
+.number {
+  color: #e8e8e8;
+  background-color: #6a6d70;
+}
+.ac,
+.swap,
+.percent {
+  color: #e3e3e3;
+  background-color: #4d5054;
 }
 
 .number,
@@ -33,35 +57,8 @@
   justify-content: center;
   align-items: center;
   font-size: 6vh;
-  border: 3px solid black;
-  width: 100%;
-  height: 100%;
-}
-
-.percent,
-.divide,
-.multiply,
-.subtract,
-.add,
-.equals,
-.swap,
-.nine,
-.eight,
-.six,
-.five,
-.three,
-.two,
-.decimal {
-  border-right: 0;
-  border-top: 0;
-}
-
-.ac,
-.seven,
-.four,
-.one {
-  border-top: 0;
-  border-left: 0;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
 }
 
 .ac {
@@ -91,18 +88,18 @@
   grid-area: 5 / 4 / 6 / 5;
 }
 .equals {
-  border-bottom: 0;
+  border-bottom: none;
   grid-area: 6 / 4 / 7 / 5;
 }
 
 .decimal {
-  border-bottom: 0;
+  border-bottom: none;
   grid-area: 6 / 3 / 7 / 4;
 }
 
 .zero {
-  border-bottom: 0;
-  border-left: 0;
+  border-bottom: none;
+  border-left: none;
   grid-area: 6 / 1 / 7 / 3;
 }
 
