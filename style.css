@@ -8,6 +8,7 @@
   height: 80vh;
   border: 1px solid black;
   border-radius: 10px;
+  box-shadow: 10px 10px 30px 10px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
@@ -136,4 +137,10 @@
 
 .nine {
   grid-area: 3 / 3 / 4 / 4;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #343332;
+  }
 }
