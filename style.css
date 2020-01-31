@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  width: 80vw;
+  width: 75vmin;
   height: 80vh;
   border: 1px solid black;
   border-radius: 10px;
@@ -139,6 +139,44 @@
   grid-area: 3 / 3 / 4 / 4;
 }
 
+@media screen and (max-width: 576px) {
+  #calculator {
+    width: 90vw;
+    height: 50%;
+  }
+
+  .number,
+  .ac,
+  .swap,
+  .percent,
+  .divide,
+  .multiply,
+  .subtract,
+  .add,
+  .equals {
+    font-size: 7vw;
+  }
+}
+
+@media screen and (max-height: 500px) {
+  #calculator {
+    height: 90vh;
+  }
+  .number,
+  .ac,
+  .swap,
+  .percent,
+  .divide,
+  .multiply,
+  .subtract,
+  .add,
+  .equals {
+    font-size: 6vh;
+  }
+}
+
+@media screen and (max-height: 320px) {
+}
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #343332;
