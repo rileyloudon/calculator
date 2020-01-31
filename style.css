@@ -1,4 +1,5 @@
 #calculator {
+  font-family: Helvetica, sans-serif;
   margin: auto;
   margin-top: 5vh;
   display: grid;
@@ -9,6 +10,7 @@
   border: 1px solid black;
   border-radius: 10px;
   box-shadow: 10px 10px 30px 10px rgba(0, 0, 0, 0.5);
+  opacity: 0.9;
   overflow: hidden;
 }
 
@@ -25,11 +27,7 @@
   grid-area: 1 / 1 / 2 / 5;
 }
 
-.divide,
-.multiply,
-.subtract,
-.add,
-.equals {
+.operator {
   color: #fef0df;
   background-color: #ff950c;
 }
@@ -38,22 +36,15 @@
   color: #e8e8e8;
   background-color: #6a6d70;
 }
-.ac,
-.swap,
-.percent {
+
+.tool {
   color: #e3e3e3;
   background-color: #4d5054;
 }
 
 .number,
-.ac,
-.swap,
-.percent,
-.divide,
-.multiply,
-.subtract,
-.add,
-.equals {
+.tool,
+.operator {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -139,22 +130,21 @@
   grid-area: 3 / 3 / 4 / 4;
 }
 
-@media screen and (max-width: 576px) {
+/* 576 */
+
+@media screen and (max-width: 720px) {
   #calculator {
-    width: 90vw;
-    height: 60vh;
+    width: 75vw;
+    height: 75vmin;
   }
 
-  .number,
-  .ac,
-  .swap,
-  .percent,
-  .divide,
-  .multiply,
-  .subtract,
-  .add,
-  .equals {
+  .display {
     font-size: 7vw;
+  }
+  .number,
+  .tool,
+  .operator {
+    font-size: 6vw;
   }
 }
 
@@ -163,15 +153,13 @@
     height: 70vh;
   }
 
+  .display {
+    font-size: 7vh;
+  }
+
   .number,
-  .ac,
-  .swap,
-  .percent,
-  .divide,
-  .multiply,
-  .subtract,
-  .add,
-  .equals {
+  .tool,
+  .operator {
     font-size: 6vh;
   }
 }
