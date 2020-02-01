@@ -2,7 +2,9 @@ const displayValue = document.querySelector('.display');
 const keys = document.querySelector('#calculator');
 
 let display = '0';
+let firstNumber = '';
 let operator = '';
+let secondNumber = '';
 
 keys.addEventListener('click', event => {
   const { target } = event;
@@ -24,9 +26,34 @@ keys.addEventListener('click', event => {
     updateDisplay();
   }
 
+  if (target.value === 'pos/neg') {
+    if (display.includes('-')) {
+      display = display.substr(1);
+      updateDisplay();
+    } else {
+      display === '0' ? display === '0' : (display = '-' + display);
+      updateDisplay();
+    }
+  }
+
   if (target.value === 'percent') {
-    percent(display);
+    percent();
     updateDisplay();
+  }
+
+  if (target.className.includes('operator')) {
+    if (target.value === 'equals') {
+      secondNumber = display;
+      operate();
+      console.log(firstNumber, operator, secondNumber);
+      updateDisplay();
+      display = display.toString();
+    } else {
+      firstNumber = display;
+      operator = target.value;
+      display = '0';
+      updateDisplay();
+    }
   }
 
   console.log(target.value);
@@ -36,62 +63,50 @@ const updateDisplay = () => {
   displayValue.textContent = display;
 };
 
-const operate = (a, operator, b) => {
+const operate = () => {
   switch (operator) {
     case 'add':
-      add(b);
+      add();
       return display;
     case 'subtract':
-      subtract(b);
+      subtract();
       return display;
     case 'multiply':
-      multiply(b);
+      multiply();
       return display;
     case 'divide':
-      divide(b);
+      divide();
       return display;
   }
 };
 
-const add = number => {
-  display += number;
+const add = () => {
+  display = Number(firstNumber) + Number(secondNumber);
 };
 
-const subtract = number => {
-  display -= number;
+const subtract = () => {
+  display = Number(firstNumber) - Number(secondNumber);
 };
 
-const multiply = number => {
-  display *= number;
+const multiply = () => {
+  display = Number(firstNumber) * Number(secondNumber);
 };
 
-const divide = number => {
-  if (number === 0) {
-    return (display = 'Entering Hyperspace...');
+const divide = () => {
+  if (secondNumber === '0') {
+    return (display = '∞');
   }
-  display /= number;
+  display = Number(firstNumber) / Number(secondNumber);
 };
 
 const percent = () => {
-  if (display === 0) {
+  if (display === '0') {
     return (display = '0');
   } else {
-    display /= 100;
+    display /= '100';
+    display = display.toString();
     return display;
   }
 };
 
-// add.addEventListener('click', () => {
-// });
-
-// subract.addEventListener('click', () => {
-// });
-
-// multiply.addEventListener('click', () => {
-// });
-
-// divide.addEventListener('click', () => {
-// });
-
-// operate();
 updateDisplay();
