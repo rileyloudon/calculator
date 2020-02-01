@@ -7,21 +7,36 @@ let operator = '';
 keys.addEventListener('click', event => {
   const { target } = event;
 
-  if (target.className.includes('number') && !display.includes('.')) {
-    display === '0' ? (display = target.value) : (display += target.value);
-    displayValue.textContent = display;
+  if (target.className.includes('number')) {
+    if (target.value === '.') {
+      if (!display.includes('.')) {
+        display += target.value;
+        updateDisplay();
+      }
+    } else {
+      display === '0' ? (display = target.value) : (display += target.value);
+      updateDisplay();
+    }
   }
 
-  console.log(target.className);
+  if (target.value === 'clear') {
+    display = '0';
+    updateDisplay();
+  }
+
+  if (target.value === 'percent') {
+    percent(display);
+    updateDisplay();
+  }
+
+  console.log(target.value);
 });
 
-const updateDisplay = display => {
+const updateDisplay = () => {
   displayValue.textContent = display;
 };
 
 const operate = (a, operator, b) => {
-  // display = a;
-
   switch (operator) {
     case 'add':
       add(b);
@@ -59,7 +74,7 @@ const divide = number => {
 
 const percent = () => {
   if (display === 0) {
-    return (display = 0);
+    return (display = '0');
   } else {
     display /= 100;
     return display;
@@ -79,4 +94,4 @@ const percent = () => {
 // });
 
 // operate();
-updateDisplay(display);
+updateDisplay();
