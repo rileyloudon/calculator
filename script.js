@@ -1,7 +1,26 @@
-let display = 0;
+const displayValue = document.querySelector('.display');
+const keys = document.querySelector('#calculator');
+
+let display = '0';
+let operator = '';
+
+keys.addEventListener('click', event => {
+  const { target } = event;
+
+  if (target.className.includes('number') && !display.includes('.')) {
+    display === '0' ? (display = target.value) : (display += target.value);
+    displayValue.textContent = display;
+  }
+
+  console.log(target.className);
+});
+
+const updateDisplay = display => {
+  displayValue.textContent = display;
+};
 
 const operate = (a, operator, b) => {
-  display = a;
+  // display = a;
 
   switch (operator) {
     case 'add':
@@ -59,4 +78,5 @@ const percent = () => {
 // divide.addEventListener('click', () => {
 // });
 
-operate();
+// operate();
+updateDisplay(display);

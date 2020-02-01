@@ -10,7 +10,6 @@
   border: 1px solid black;
   border-radius: 10px;
   box-shadow: 10px 10px 30px 10px rgba(0, 0, 0, 0.5);
-  opacity: 0.9;
   overflow: hidden;
 }
 
@@ -51,6 +50,26 @@
   font-size: 6vh;
   border-bottom: 1px solid black;
   border-right: 1px solid black;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.number:active {
+  background-color: #a2a2a3;
+}
+
+.tool:active {
+  background-color: #6a6d70;
+}
+
+.operator:active {
+  background-color: #c97d20;
+}
+
+button {
+  border: none;
 }
 
 .ac {
@@ -129,8 +148,6 @@
 .nine {
   grid-area: 3 / 3 / 4 / 4;
 }
-
-/* 576 */
 
 @media screen and (max-width: 720px) {
   #calculator {
