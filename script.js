@@ -5,6 +5,7 @@ let display = '0';
 let firstNumber = '';
 let operator = '';
 let secondNumber = '';
+let answer = '';
 
 keys.addEventListener('click', event => {
   const { target } = event;
@@ -16,7 +17,10 @@ keys.addEventListener('click', event => {
         updateDisplay();
       }
     } else {
-      display === '0' ? (display = target.value) : (display += target.value);
+      display === '0' || displayValue.className.includes('done')
+        ? (display = target.value)
+        : (display += target.value);
+      displayValue.classList.remove('done');
       updateDisplay();
     }
   }
@@ -43,16 +47,26 @@ keys.addEventListener('click', event => {
 
   if (target.className.includes('operator')) {
     if (target.value === 'equals') {
-      secondNumber = display;
-      operate();
-      console.log(firstNumber, operator, secondNumber);
-      updateDisplay();
-      display = display.toString();
+      if (!displayValue.className.includes('done')) {
+        displayValue.classList.add('done');
+        secondNumber = display;
+        operate();
+        updateDisplay();
+        display = display.toString();
+
+        console.log(firstNumber, operator, secondNumber);
+      } else {
+        firstNumber = display;
+        operate();
+        updateDisplay();
+        display = display.toString();
+
+        console.log(firstNumber, operator, secondNumber);
+      }
     } else {
       firstNumber = display;
       operator = target.value;
       display = '0';
-      updateDisplay();
     }
   }
 
