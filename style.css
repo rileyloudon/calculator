@@ -198,7 +198,7 @@ button:focus {
 
 @media screen and (max-width: 720px) and (min-height: 500px) {
   #calculator {
-    height: 65vmax;
+    height: 55vmax;
   }
 }
 
@@ -206,4 +206,12 @@ button:focus {
   body {
     background-color: #343332;
   }
+}
+
+_:-ms-lang(x),
+.number:hover,
+.tool:hover,
+.operator:hover {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
 }
