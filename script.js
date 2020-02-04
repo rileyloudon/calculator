@@ -1,5 +1,4 @@
-const displayValue = document.querySelector('.display');
-const keys = document.querySelector('#calculator');
+const displayClass = document.querySelector('.display');
 
 let calculator = {
   display: '0',
@@ -8,22 +7,57 @@ let calculator = {
   secondNumber: null,
 };
 
+document.addEventListener('keydown', event => {
+  const { key } = event;
+  let { display } = calculator;
+
+  if ((key >= 0 && key <= 9) || key === '.') {
+    if (display.length <= 10) {
+      numberHandler(key);
+    }
+  }
+
+  if (
+    (key >= '*' && key <= '-') ||
+    key === '/' ||
+    key === 'Enter' ||
+    key === '='
+  ) {
+    operatorHandler(key);
+  }
+
+  if (key === 'Escape') {
+    clear();
+  }
+
+  if (event.altKey && key === '–') {
+    swapSign();
+  }
+
+  if (key === '%') {
+    percent();
+  }
+
+  console.log(event);
+});
+
+const keys = document.querySelector('#calculator');
 keys.addEventListener('click', event => {
   const { target } = event;
   let { display } = calculator;
 
   if (target.className.includes('number')) {
     if (display.length <= 10) {
-      numberPress();
+      numberHandler(target.value);
     }
   }
 
+  if (target.className.includes('operator')) {
+    operatorHandler(target.value);
+  }
+
   if (target.value === 'clear') {
-    calculator.display = '0';
-    calculator.firstNumber = null;
-    calculator.operator = null;
-    calculator.secondNumber = null;
-    updateDisplay();
+    clear();
   }
 
   if (target.value === 'pos/neg') {
@@ -32,61 +66,62 @@ keys.addEventListener('click', event => {
 
   if (target.value === 'percent') {
     percent();
-    updateDisplay();
-  }
-
-  if (target.className.includes('operator')) {
-    operatorPress();
   }
 
   console.log(target.value);
 });
 
-const numberPress = () => {
-  const { target } = event;
+// numberValue = target.value
+const numberHandler = numberValue => {
   let { display } = calculator;
 
-  if (target.value === '.') {
+  if (numberValue === '.') {
     if (!display.includes('.')) {
-      calculator.display += target.value;
+      calculator.display += numberValue;
       updateDisplay();
     }
   } else {
-    calculator.display === '0' || displayValue.className.includes('done')
-      ? (calculator.display = target.value)
-      : (calculator.display += target.value);
-    displayValue.classList.remove('done');
+    calculator.display === '0' || displayClass.className.includes('done')
+      ? (calculator.display = numberValue)
+      : (calculator.display += numberValue);
+    displayClass.classList.remove('done');
     updateDisplay();
   }
 };
 
-const operatorPress = () => {
-  const { target } = event;
+// operatorValue = target.value
+const operatorHandler = operatorValue => {
   let { display } = calculator;
 
-  if (target.value === 'equals') {
-    if (!displayValue.className.includes('done')) {
-      displayValue.classList.add('done');
+  if (operatorValue === '=' || operatorValue === 'Enter') {
+    if (!displayClass.className.includes('done')) {
+      displayClass.classList.add('done');
       calculator.secondNumber = display;
-      console.log(
-        calculator.firstNumber,
-        calculator.operator,
-        calculator.secondNumber,
-        'equals',
-        calculator.display,
-      );
     } else {
       calculator.firstNumber = display;
     }
     operate();
     updateDisplay();
     calculator.display = calculator.display.toString();
+    console.log(
+      calculator.firstNumber,
+      calculator.operator,
+      calculator.secondNumber,
+    );
   } else {
     calculator.firstNumber = display;
-    calculator.operator = target.value;
+    calculator.operator = operatorValue;
     // target.classList.add('active');
     calculator.display = '0';
   }
+};
+
+const clear = () => {
+  calculator.display = '0';
+  calculator.firstNumber = null;
+  calculator.operator = null;
+  calculator.secondNumber = null;
+  updateDisplay();
 };
 
 const swapSign = () => {
@@ -111,30 +146,30 @@ const percent = () => {
   } else {
     calculator.display /= '100';
     calculator.display = calculator.display.toString();
-    return display;
+    updateDisplay();
   }
 };
 
 const updateDisplay = () => {
   let { display } = calculator;
 
-  displayValue.value = display;
+  displayClass.value = display;
 };
 
 const operate = () => {
   let { display, operator } = calculator;
 
   switch (operator) {
-    case 'add':
+    case '+':
       add();
       return display;
-    case 'subtract':
+    case '-':
       subtract();
       return display;
-    case 'multiply':
+    case '*':
       multiply();
       return display;
-    case 'divide':
+    case '/':
       divide();
       return display;
   }
