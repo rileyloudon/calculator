@@ -1,6 +1,6 @@
-const displayClass = document.querySelector('.display');
+const displayClass = document.getElementById('display');
 
-let calculator = {
+const calculator = {
   display: '0',
   firstNumber: null,
   operator: null,
@@ -38,10 +38,14 @@ document.addEventListener('keydown', event => {
     percent();
   }
 
+  if (key === 'Backspace') {
+    backspace();
+  }
+
   console.log(event);
 });
 
-const keys = document.querySelector('#calculator');
+const keys = document.getElementById('calculator');
 keys.addEventListener('click', event => {
   const { target } = event;
   let { display } = calculator;
@@ -148,6 +152,15 @@ const percent = () => {
     calculator.display = calculator.display.toString();
     updateDisplay();
   }
+};
+
+const backspace = () => {
+  let { display } = calculator;
+
+  display.length > 1
+    ? (calculator.display = display.substr(0, display.length - 1))
+    : (calculator.display = '0');
+  updateDisplay();
 };
 
 const updateDisplay = () => {
