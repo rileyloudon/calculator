@@ -7,6 +7,7 @@ const calculator = {
   secondNumber: null,
 };
 
+// Allows keyboard to enter inputs.
 document.addEventListener('keydown', event => {
   const { key } = event;
   let { display } = calculator;
@@ -43,6 +44,7 @@ document.addEventListener('keydown', event => {
   }
 });
 
+// Allows buttons on screen to enter inputs.
 const keys = document.getElementById('calculator');
 keys.addEventListener('click', event => {
   const { target } = event;
@@ -69,20 +71,20 @@ keys.addEventListener('click', event => {
   if (target.value === 'percent') {
     percent();
   }
-
-  console.log(target.value);
 });
 
 // numberValue = target.value
 const numberHandler = numberValue => {
   let { display } = calculator;
 
+  // Limit one decimal place per number.
   if (numberValue === '.') {
     if (!display.includes('.')) {
-      calculator.display += numberValue;
+      calculator.display += '.';
       updateDisplay();
     }
   } else {
+    // Print numbers onto the screen.
     calculator.display === '0' || displayHTML.className.includes('reset')
       ? (calculator.display = numberValue)
       : (calculator.display += numberValue);
@@ -95,6 +97,11 @@ const numberHandler = numberValue => {
 const operatorHandler = operatorValue => {
   let { display, operator } = calculator;
 
+  /* When equals is pressed ->
+    keep track it was pressed with .reset. Allows number presses to start a new equation.
+    set the second number to what is displayed.
+    OR the first number (Allows for spamming = and getting the proper result).
+  */
   if (operatorValue === '=' || operatorValue === 'Enter') {
     if (!displayHTML.className.includes('reset')) {
       displayHTML.classList.add('reset');
@@ -104,27 +111,32 @@ const operatorHandler = operatorValue => {
     }
     operate();
     updateDisplay();
-    toggleClass();
+
+    // Turn the answer back into a string so you can use +/- on it.
     calculator.display = calculator.display.toString();
-    console.log(
-      calculator.firstNumber,
-      calculator.operator,
-      calculator.secondNumber,
-    );
   } else {
+    // Prevents the first number from getting set to 0 unexpectedly
     if (
       calculator.firstNumber === null ||
       (displayHTML.className.includes('reset') && calculator.display !== '0')
     ) {
       calculator.firstNumber = display;
     }
-
+    // If the operator already exists, calculate the equation based on what you have
+    // (Allows for 5+6-9*2)
+    if (operator) {
+      calculator.secondNumber = display;
+      operate();
+      updateDisplay();
+      calculator.firstNumber = displayHTML.value;
+    }
     calculator.operator = operatorValue;
-    toggleClass();
     calculator.display = '0';
   }
+  toggleClass();
 };
 
+// Reset everything
 const clear = () => {
   calculator.display = '0';
   calculator.firstNumber = null;
@@ -134,6 +146,7 @@ const clear = () => {
   toggleClass();
 };
 
+// Convert the current number to positive or negative
 const swapSign = () => {
   let { display } = calculator;
 
@@ -141,13 +154,12 @@ const swapSign = () => {
     calculator.display = display.substr(1);
     updateDisplay();
   } else {
-    display === '0'
-      ? calculator.display === '0'
-      : (calculator.display = '-' + display);
+    calculator.display = '-' + display;
     updateDisplay();
   }
 };
 
+// Get the percent of the current number
 const percent = () => {
   let { display } = calculator;
 
@@ -160,6 +172,7 @@ const percent = () => {
   }
 };
 
+// Allow for the numbers to be deleted (Currently only works using keyboard)
 const backspace = () => {
   let { display } = calculator;
 
@@ -169,29 +182,36 @@ const backspace = () => {
   updateDisplay();
 };
 
+// Pass the current display value into the HTML file
 const updateDisplay = () => {
   let { display } = calculator;
 
   displayHTML.value = display;
 };
 
+// Toggles a class to see the current operator
 const toggleClass = () => {
   let { operator } = calculator;
   let { target, key } = event;
 
+  // Find the current active operator
   const classes = document.querySelector('.active');
+
+  // If there is one, remove it.
   if (classes) {
     classes.classList.remove('active');
   }
-  if (
-    operator !== null &&
-    (target.value !== '=' && key !== 'Enter' && key !== '=')
-  ) {
+
+  // If the operator exists, and is not =
+  if (operator && (target.value !== '=' && key !== 'Enter' && key !== '=')) {
+    // Find the operator and add the active class to it.
+    // `.${CSS.escape(operator)}` changes to the operator value (operator = '+')
     const activeOperator = document.querySelector(`.${CSS.escape(operator)}`);
     activeOperator.classList.add('active');
   }
 };
 
+// Find the currect operator and run the correct math equation
 const operate = () => {
   let { display, operator } = calculator;
 
@@ -211,6 +231,7 @@ const operate = () => {
   }
 };
 
+// Run the correct math equation. Rounds the numbers to 3 decimal places.
 const add = () => {
   let { firstNumber, secondNumber } = calculator;
 
@@ -220,6 +241,7 @@ const add = () => {
     ) / 1000;
 };
 
+// See add().
 const subtract = () => {
   let { firstNumber, secondNumber } = calculator;
 
@@ -229,6 +251,7 @@ const subtract = () => {
     ) / 1000;
 };
 
+// See add().
 const multiply = () => {
   let { firstNumber, secondNumber } = calculator;
 
@@ -238,6 +261,7 @@ const multiply = () => {
     ) / 1000;
 };
 
+// If you try to divide by 0, enter the matrix. See add() for other stuff.
 const divide = () => {
   let { firstNumber, secondNumber } = calculator;
 
@@ -249,5 +273,3 @@ const divide = () => {
       (Number(firstNumber) / Number(secondNumber) + Number.EPSILON) * 1000,
     ) / 1000;
 };
-
-// 6 - 3 = + 2
