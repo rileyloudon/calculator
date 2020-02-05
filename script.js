@@ -124,7 +124,7 @@ const operatorHandler = operatorValue => {
     }
     // If the operator already exists, calculate the equation based on what you have
     // (Allows for 5+6-9*2)
-    if (operator) {
+    if (operator && calculator.firstNumber > '0') {
       calculator.secondNumber = display;
       operate();
       updateDisplay();
