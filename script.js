@@ -1,4 +1,4 @@
-const displayClass = document.getElementById('display');
+const displayHTML = document.getElementById('display');
 
 const calculator = {
   display: '0',
@@ -41,8 +41,6 @@ document.addEventListener('keydown', event => {
   if (key === 'Backspace') {
     backspace();
   }
-
-  console.log(event);
 });
 
 const keys = document.getElementById('calculator');
@@ -85,27 +83,28 @@ const numberHandler = numberValue => {
       updateDisplay();
     }
   } else {
-    calculator.display === '0' || displayClass.className.includes('done')
+    calculator.display === '0' || displayHTML.className.includes('reset')
       ? (calculator.display = numberValue)
       : (calculator.display += numberValue);
-    displayClass.classList.remove('done');
+    displayHTML.classList.remove('reset');
     updateDisplay();
   }
 };
 
 // operatorValue = target.value
 const operatorHandler = operatorValue => {
-  let { display } = calculator;
+  let { display, operator } = calculator;
 
   if (operatorValue === '=' || operatorValue === 'Enter') {
-    if (!displayClass.className.includes('done')) {
-      displayClass.classList.add('done');
+    if (!displayHTML.className.includes('reset')) {
+      displayHTML.classList.add('reset');
       calculator.secondNumber = display;
     } else {
       calculator.firstNumber = display;
     }
     operate();
     updateDisplay();
+    toggleClass();
     calculator.display = calculator.display.toString();
     console.log(
       calculator.firstNumber,
@@ -113,9 +112,15 @@ const operatorHandler = operatorValue => {
       calculator.secondNumber,
     );
   } else {
-    calculator.firstNumber = display;
+    if (
+      calculator.firstNumber === null ||
+      (displayHTML.className.includes('reset') && calculator.display !== '0')
+    ) {
+      calculator.firstNumber = display;
+    }
+
     calculator.operator = operatorValue;
-    // target.classList.add('active');
+    toggleClass();
     calculator.display = '0';
   }
 };
@@ -126,6 +131,7 @@ const clear = () => {
   calculator.operator = null;
   calculator.secondNumber = null;
   updateDisplay();
+  toggleClass();
 };
 
 const swapSign = () => {
@@ -166,7 +172,24 @@ const backspace = () => {
 const updateDisplay = () => {
   let { display } = calculator;
 
-  displayClass.value = display;
+  displayHTML.value = display;
+};
+
+const toggleClass = () => {
+  let { operator } = calculator;
+  let { target, key } = event;
+
+  const classes = document.querySelector('.active');
+  if (classes) {
+    classes.classList.remove('active');
+  }
+  if (
+    operator !== null &&
+    (target.value !== '=' && key !== 'Enter' && key !== '=')
+  ) {
+    const activeOperator = document.querySelector(`.${CSS.escape(operator)}`);
+    activeOperator.classList.add('active');
+  }
 };
 
 const operate = () => {
@@ -226,3 +249,5 @@ const divide = () => {
       (Number(firstNumber) / Number(secondNumber) + Number.EPSILON) * 1000,
     ) / 1000;
 };
+
+// 6 - 3 = + 2

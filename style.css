@@ -67,7 +67,7 @@
 }
 
 .active {
-  border: 2px solid black;
+  border: 2px solid #303133;
 }
 
 button,
@@ -206,12 +206,4 @@ button:focus {
   body {
     background-color: #343332;
   }
-}
-
-_:-ms-lang(x),
-.number:hover,
-.tool:hover,
-.operator:hover {
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
 }
