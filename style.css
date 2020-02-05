@@ -89,6 +89,18 @@ body {
   grid-area: 6 / 1 / 7 / 3;
 }
 
+/* Browser Fixes: */
+button,
+input {
+  border: none;
+  margin: 0;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Media Queries: */
 @media screen and (max-width: 720px) {
   #calculator {
     width: 75vw;
@@ -105,18 +117,6 @@ body {
   }
 }
 
-/* Browser Fixes: */
-button,
-input {
-  border: none;
-  margin: 0;
-}
-
-button:focus {
-  outline: none;
-}
-
-/* Media Queries: */
 @media screen and (max-height: 500px) {
   #calculator {
     height: 75vmin;
@@ -153,5 +153,7 @@ button:focus {
   }
   #display {
     background-color: #303133;
+    opacity: 1;
+    -webkit-opacity: 1;
   }
 }
