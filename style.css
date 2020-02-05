@@ -20,6 +20,7 @@ body {
 
 #display {
   color: #ffffff;
+  -webkit-text-fill-color: white; /* Make text white in Safari */
   background-color: #303133;
   padding: 10px;
   text-align: right;
