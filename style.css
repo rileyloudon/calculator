@@ -151,4 +151,7 @@ button:focus {
   body {
     background-color: #dddddd;
   }
+  #display {
+    background-color: #303133;
+  }
 }
