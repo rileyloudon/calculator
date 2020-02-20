@@ -116,12 +116,6 @@ const operatorHandler = operatorValue => {
     calculator.display = calculator.display.toString();
   } else {
     // Prevents the first number from getting set to 0 unexpectedly
-    console.log(
-      calculator.firstNumber,
-      calculator.operator,
-      calculator.secondNumber,
-      display,
-    );
     if (
       calculator.firstNumber === null ||
       (displayHTML.className.includes('reset') && calculator.display !== '0')
