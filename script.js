@@ -116,6 +116,12 @@ const operatorHandler = operatorValue => {
     calculator.display = calculator.display.toString();
   } else {
     // Prevents the first number from getting set to 0 unexpectedly
+    console.log(
+      calculator.firstNumber,
+      calculator.operator,
+      calculator.secondNumber,
+      display,
+    );
     if (
       calculator.firstNumber === null ||
       (displayHTML.className.includes('reset') && calculator.display !== '0')
@@ -124,7 +130,11 @@ const operatorHandler = operatorValue => {
     }
     // If the operator already exists, calculate the equation based on what you have
     // (Allows for 5+6-9*2)
-    if (operator && calculator.firstNumber > '0') {
+    if (
+      operator &&
+      calculator.firstNumber > '0' &&
+      !displayHTML.className.includes('reset')
+    ) {
       calculator.secondNumber = display;
       operate();
       updateDisplay();
